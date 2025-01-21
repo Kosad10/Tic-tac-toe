@@ -1,18 +1,19 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class TestOptions implements GameOptions {
+public class DefaltOptions implements GameOptions{
     private Queue<Player> players;
     private Player player1;
     private Player player2;
 
-    public TestOptions() {
+    public DefaltOptions () {
         this.players = new LinkedList<>();
-        this.player1 = new HumanPlayer("Nastya", "X");
-        this.player2 = new HumanPlayer("Comp", "O");
-        players.add(player1);
-        players.add(player2);
+        this.player1 = new HumanPlayer("Player 1", "X");
+        this.player2 = new ComputerPlayer("Player 2", "O");
+        getPlayers().add(player1);
+        getPlayers().add(player2);
     }
+
     @Override
     public int getSizeLine() {
         return 3;
@@ -20,7 +21,7 @@ public class TestOptions implements GameOptions {
 
     @Override
     public int getSize() {
-        return 6;
+        return 4;
     }
 
     @Override
