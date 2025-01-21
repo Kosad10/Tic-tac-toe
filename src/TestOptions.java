@@ -4,7 +4,7 @@ import java.util.Queue;
 public class TestOptions implements GameOptions {
     private Queue<Player> players;
     private Player player1;
-    private Player player2;
+    private final Player player2;
 
     public TestOptions() {
         this.players = new LinkedList<>();

@@ -1,6 +1,6 @@
 public class Field {
-    private String[][] field;
-    private int countToWin;
+    private final String[][] field;
+    private final int countToWin;
 
 
     public Field(int size, int countToWin) {
@@ -36,19 +36,23 @@ public class Field {
         return (!field[x][y].equals("-"));
     }
 
-    public boolean setCell(String symbol, int[] turn) {
-        try {
+    public void setCell(Player player) {
+        while (true) {
+            String symbol = player.getSymbol();
+            int[] turn = player.getCords();
+            try {
+                isCellTaken(turn[0], turn[1]);
+            } catch (RuntimeException outOfBound) {
+                System.out.println("Значение выходит из диапазона допустимых");
+                continue;
+            }
+            if (isCellTaken(turn[0], turn[1])) {
+                System.out.println("Клетка уже занята");
+                continue;
+            }
             field[turn[0]][turn[1]] = symbol;
-        } catch (RuntimeException outOfBound) {
-            System.out.println("Значение выходит из диапазона допустимых");
-            return false;
+            return;
         }
-        if (isCellTaken(turn[0], turn[1])) {
-            System.out.println("Клетка уже занята");
-            return false;
-        }
-        field[turn[0]][turn[1]] = symbol;
-        return true;
     }
 
     public boolean isWinner(String name, String symbol) {
@@ -110,8 +114,6 @@ public class Field {
         }
 
         int maxDiffRight = field.length - countToWin;
-        int xyRight = 0;
-        int yxRight = 0;
         for (int diff = 0; diff < maxDiffRight; diff++) {
             for (int i = 1; i < field.length - diff; i++) {
                 int x = (field.length - diff) - i;

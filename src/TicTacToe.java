@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class TicTacToe {
-    private Field field;
-    private Queue<Player> players;
+    private final Field field;
+    private final Queue<Player> players;
 
 
     public TicTacToe(GameOptions gameOptions) {
@@ -19,7 +19,7 @@ public class TicTacToe {
             motion++;
             field.printField();
             Player currentPlayer = players.poll();
-
+            field.setCell(currentPlayer);
             if (field.isWinner(currentPlayer.getName(), currentPlayer.getSymbol())) {
                 isFinished = true;
             }
@@ -30,16 +30,6 @@ public class TicTacToe {
             }
         }
 
-    }
-
-    public void doTurn (Player player) {
-        String symbol = player.getSymbol();
-        int[] cords = player.getCords();
-        boolean setCellDoing = field.setCell(symbol, cords);
-        while (!setCellDoing) {
-            setCellDoing = field.setCell(symbol, cords);
-            field.setCell(symbol, cords);
-        }
     }
 }
 
